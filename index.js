@@ -7,7 +7,7 @@ const port = 8080;
 
 require("dotenv").config();
 
-//CORS Configs
+// CORS Configs
 const corsOptions = {
   origin: process.env.DEV_FE_URL,
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -15,7 +15,8 @@ const corsOptions = {
 };
 
 //Middleware to parse JSON
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
