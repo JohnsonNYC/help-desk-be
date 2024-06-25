@@ -10,7 +10,7 @@ require("dotenv").config();
 //Middleware to parse JSON
 app.use(
   cors({
-    origin: "http://localhost:3000", // Adjust according to your frontend's URL
+    origin: true, // Adjust according to your frontend's URL
     methods: ["GET", "POST", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
