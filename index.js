@@ -1,6 +1,3 @@
-// import pg from "pg";
-// const { Pool } = pg;
-
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
@@ -20,15 +17,6 @@ const corsOptions = {
 //Middleware to parse JSON
 app.use(cors(corsOptions));
 app.use(express.json());
-
-//Create a PostgreSQL connection pool
-// const pool = new Pool({
-//   user: process.env.DB_USER,
-//   host: process.env.DB_HOST,
-//   database: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   port: process.env.DB_PORT,
-// });
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
@@ -89,6 +77,10 @@ app.get("/tickets", async (req, res) => {
   } catch (e) {
     res.status(500).json({ status: 500, error: e.message });
   }
+});
+
+app.get("/", async (req, res) => {
+  res.send("Welcome to the Help Desk!!");
 });
 
 app.listen(port, () => {
