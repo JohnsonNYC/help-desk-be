@@ -1,22 +1,20 @@
+const cors = require("cors");
 const express = require("express");
 const { Pool } = require("pg");
-const cors = require("cors");
 
 const app = express();
 const port = 8080;
 
 require("dotenv").config();
 
-// CORS Configs
-const corsOptions = {
-  origin: process.env.DEV_FE_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
 //Middleware to parse JSON
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Adjust according to your frontend's URL
+    methods: ["GET", "POST", "PUT"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 
 const pool = new Pool({
