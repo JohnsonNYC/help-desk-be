@@ -27,6 +27,7 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+/* This code snippet is defining a route handler for updating a specific ticket in the database.*/
 app.put("/tickets/:id", async (req, res) => {
   const { id } = req.params;
   const { name, email, description, status } = req.body;
@@ -47,6 +48,7 @@ app.put("/tickets/:id", async (req, res) => {
   }
 });
 
+/* The code snippet you provided is defining a route handler for creating a new ticket in the database*/
 app.post("/tickets", async (req, res) => {
   const { name, email, description } = req.body;
 
@@ -72,6 +74,7 @@ app.post("/tickets", async (req, res) => {
   }
 });
 
+/* The code snippet is defining a route handler for handling GET requests to select all records from the "tickets" table in the database */
 app.get("/tickets", async (req, res) => {
   try {
     const result = await pool.query(`SELECT * FROM tickets`);
