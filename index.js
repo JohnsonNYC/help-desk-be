@@ -1,3 +1,6 @@
+// import pg from "pg";
+// const { Pool } = pg;
+
 const express = require("express");
 const { Pool } = require("pg");
 const cors = require("cors");
@@ -19,12 +22,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 //Create a PostgreSQL connection pool
+// const pool = new Pool({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   port: process.env.DB_PORT,
+// });
+
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+  connectionString: process.env.POSTGRES_URL,
 });
 
 /* This code snippet is defining a route handler for updating a specific ticket in the database.*/
