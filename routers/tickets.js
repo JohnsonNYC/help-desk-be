@@ -16,12 +16,11 @@ router.put("/tickets/:id", async (req, res) => {
       "UPDATE tickets SET name = $1, email = $2, description = $3, status = $4 WHERE ticket_id = $5 RETURNING *",
       [name, email, description, status, id]
     );
-    if (result.rowCount > 0) {
-      const updatedTicket = result.rows[0];
-      res.status(200).json({ status: 200, ticket: updatedTicket });
-    } else {
-      res.status(404).json({ error: "Ticket not found" });
-    }
+
+    if (result && result.rowCount == 0) return;
+
+    const updatedTicket = result.rows[0];
+    res.status(200).json({ status: 200, ticket: updatedTicket });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -39,15 +38,10 @@ router.post("/tickets", async (req, res) => {
       [name, email, description, status]
     );
 
-    if (result.rowCount > 0) {
-      //Successful Insertion
-      const createdTicketId = result.rows[0];
+    if (result && result.rowCount == 0) return;
 
-      res.status(201).json({ status: 200, ticket: createdTicketId });
-    } else {
-      // No Row Affected
-      res.status(500).json({ status: 500, error: "Failed to insert ticket" });
-    }
+    const createdTicketId = result.rows[0];
+    res.status(201).json({ status: 200, ticket: createdTicketId });
   } catch (e) {
     res.status(500).json({ status: 500, error: e.message });
   }
